@@ -1,0 +1,19 @@
+
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
+#Load data
+url = 'guerry.csv'
+data = pd.read_csv(url)
+#Fit regression model(using natural log of one of the regression)
+results = smf.ols('Lottery ~ Literacy + np.log(Pop1831) + Prostitutes + Instruction + MainCity', data=data).fit()
+#Inspect the results
+print (results.summary())
+file_name = "outputFile.txt"
+
+# Open the file in write mode
+# This will create the file if it doesn't exist, or overwrite it if it does
+with open(file_name, 'w') as file:
+    file.write(f'{results.summary()}')
+
+
